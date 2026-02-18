@@ -126,7 +126,7 @@ function Home() {
                             <div className="absolute -bottom-6 -right-6 w-48 h-48 border-2 border-gold/30 rounded-2xl -z-10"></div>
                             {/* Experience badge */}
                             <div className="absolute -bottom-4 -left-4 bg-white shadow-xl rounded-2xl px-6 py-4 border border-gold/20">
-                                <div className="font-playfair text-3xl font-bold text-gold">38+</div>
+                                <div className="font-playfair text-3xl font-bold text-gold">12+</div>
                                 <div className="font-poppins text-xs text-gray-500 uppercase tracking-wider">Years Legacy</div>
                             </div>
                         </div>
@@ -139,7 +139,7 @@ function Home() {
                             </h2>
                             <div className="luxury-divider-left mb-6"></div>
                             <p className="font-poppins text-gray-600 leading-relaxed mb-4">
-                                Since 1985, Patel Jwellers has been crafting extraordinary pieces that celebrate
+                                Patel Jwellers has been crafting extraordinary pieces that celebrate
                                 life's most precious moments. Our master artisans blend age-old techniques with
                                 contemporary design to create jewellery that transcends time.
                             </p>
