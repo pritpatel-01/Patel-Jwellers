@@ -1,24 +1,40 @@
 import { useState } from 'react'
 import Button from '../components/Button'
 
+const stores = [
+    {
+        id: 'surat',
+        label: 'Surat',
+        name: 'Patel Jwellers – Surat',
+        address: 'Shop No.3, Shreemit Plaza, Bapa Sitaram Chowk, Kamrej, Surat 394180',
+        mapSrc:
+            'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3710.9!2d72.9!3d21.27!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04e9a2e9a8e0d%3A0xbde4a4a9f6c3a5a!2sShreemit%20Plaza%2C%20Kamrej%2C%20Surat!5e0!3m2!1sen!2sin!4v1739000000001!5m2!1sen!2sin',
+        mapsLink: 'https://maps.app.goo.gl/feiABHWKa34xUPaU8',
+    },
+    {
+        id: 'junagadh',
+        label: 'Junagadh',
+        name: 'Patel Jwellers – Junagadh',
+        address: 'Shop No.2, Dharmbhakti Apartment, Giriraj Main Road, Junagadh 362001',
+        mapSrc:
+            'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3714.8!2d70.4569!3d21.5198!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3958185f35935d43%3A0x8cc37f6a8e77db76!2sPatel%20Jwellers!5e0!3m2!1sen!2sin!4v1739000000000!5m2!1sen!2sin',
+        mapsLink: 'https://maps.app.goo.gl/gTzXFbAZMescEY6KA',
+    },
+]
+
 function Contact() {
-    const [formData, setFormData] = useState({
-        name: '',
-        phone: '',
-        message: '',
-    })
+    const [activeStore, setActiveStore] = useState('surat')
+    const [formData, setFormData] = useState({ name: '', phone: '', message: '' })
     const [submitted, setSubmitted] = useState(false)
 
+    const store = stores.find((s) => s.id === activeStore)
+
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        })
+        setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        // In production, you'd send this to an API
         console.log('Form submitted:', formData)
         setSubmitted(true)
         setTimeout(() => {
@@ -44,8 +60,32 @@ function Contact() {
                         Contact Us
                     </h1>
                     <p className="font-poppins text-white/70 text-lg max-w-xl mx-auto">
-                        We'd love to hear from you
+                        Visit us at either of our two stores
                     </p>
+                </div>
+            </section>
+
+            {/* Store Selector Tabs */}
+            <section className="bg-white border-b border-gray-100 sticky top-0 z-20 shadow-sm">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex gap-0">
+                    {stores.map((s) => (
+                        <button
+                            key={s.id}
+                            onClick={() => setActiveStore(s.id)}
+                            className={`flex-1 sm:flex-none px-8 py-4 font-poppins font-medium text-sm tracking-wide transition-all duration-300 border-b-2 ${activeStore === s.id
+                                    ? 'border-gold text-gold bg-gold-50/40'
+                                    : 'border-transparent text-gray-500 hover:text-gray-800 hover:bg-gray-50'
+                                }`}
+                        >
+                            <span className="flex items-center gap-2 justify-center">
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                {s.label} Store
+                            </span>
+                        </button>
+                    ))}
                 </div>
             </section>
 
@@ -56,8 +96,8 @@ function Contact() {
                         {/* Contact Info */}
                         <div className="lg:col-span-2">
                             <span className="text-gold font-poppins text-sm font-medium tracking-[0.3em] uppercase">Get in Touch</span>
-                            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-6">
-                                Let's Connect
+                            <h2 className="font-playfair text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-2">
+                                {store.label} Store
                             </h2>
                             <div className="luxury-divider-left mb-8"></div>
 
@@ -68,6 +108,7 @@ function Contact() {
 
                             {/* Contact Details */}
                             <div className="space-y-6">
+                                {/* Address */}
                                 <div className="flex items-start gap-4 group">
                                     <div className="w-12 h-12 rounded-xl bg-gold-50 text-gold flex items-center justify-center flex-shrink-0 group-hover:bg-gold group-hover:text-white transition-all duration-300">
                                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,11 +117,23 @@ function Contact() {
                                         </svg>
                                     </div>
                                     <div>
-                                        <h4 className="font-poppins font-semibold text-gray-900 text-sm mb-1">Our Store</h4>
-                                        <p className="font-poppins text-gray-500 text-sm">Shop No.2, Dharmbhakti Apartment,<br />Giriraj Main Road, Junagadh 362001</p>
+                                        <h4 className="font-poppins font-semibold text-gray-900 text-sm mb-1">Store Address</h4>
+                                        <p className="font-poppins text-gray-500 text-sm">{store.address}</p>
+                                        <a
+                                            href={store.mapsLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-1 mt-1.5 text-gold text-xs font-poppins font-medium hover:text-gold-700 transition-colors"
+                                        >
+                                            Open in Google Maps
+                                            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                            </svg>
+                                        </a>
                                     </div>
                                 </div>
 
+                                {/* Phone */}
                                 <div className="flex items-start gap-4 group">
                                     <div className="w-12 h-12 rounded-xl bg-gold-50 text-gold flex items-center justify-center flex-shrink-0 group-hover:bg-gold group-hover:text-white transition-all duration-300">
                                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -93,6 +146,7 @@ function Contact() {
                                     </div>
                                 </div>
 
+                                {/* Email */}
                                 <div className="flex items-start gap-4 group">
                                     <div className="w-12 h-12 rounded-xl bg-gold-50 text-gold flex items-center justify-center flex-shrink-0 group-hover:bg-gold group-hover:text-white transition-all duration-300">
                                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -105,6 +159,7 @@ function Contact() {
                                     </div>
                                 </div>
 
+                                {/* Business Hours */}
                                 <div className="flex items-start gap-4 group">
                                     <div className="w-12 h-12 rounded-xl bg-gold-50 text-gold flex items-center justify-center flex-shrink-0 group-hover:bg-gold group-hover:text-white transition-all duration-300">
                                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -113,7 +168,7 @@ function Contact() {
                                     </div>
                                     <div>
                                         <h4 className="font-poppins font-semibold text-gray-900 text-sm mb-1">Business Hours</h4>
-                                        <p className="font-poppins text-gray-500 text-sm">Mon - Sat: 10:00 AM - 8:00 PM<br />Sunday: 11:00 AM - 6:00 PM</p>
+                                        <p className="font-poppins text-gray-500 text-sm">Mon - Sat: 10:00 AM – 8:00 PM<br />Sunday: 11:00 AM – 6:00 PM</p>
                                     </div>
                                 </div>
                             </div>
@@ -215,11 +270,12 @@ function Contact() {
                 </div>
             </section>
 
-            {/* Google Map */}
+            {/* Google Map – switches with tab */}
             <section className="h-[400px] md:h-[450px] relative">
                 <iframe
-                    title="Patel Jwellers Location"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3708.86!2d70.46!3d21.52!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDMxJzEyLjAiTiA3MMKwMjcnMzYuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
+                    key={activeStore}
+                    title={store.name}
+                    src={store.mapSrc}
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
@@ -230,10 +286,10 @@ function Contact() {
                 ></iframe>
                 {/* Map overlay card */}
                 <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-6 max-w-xs hidden md:block">
-                    <h4 className="font-playfair text-lg font-bold text-gray-900 mb-1">Patel Jwellers</h4>
-                    <p className="font-poppins text-gray-500 text-xs mb-3">Shop No.2, Dharmbhakti Apartment, Giriraj Main Road, Junagadh</p>
+                    <h4 className="font-playfair text-lg font-bold text-gray-900 mb-1">{store.name}</h4>
+                    <p className="font-poppins text-gray-500 text-xs mb-3">{store.address}</p>
                     <a
-                        href="https://maps.google.com"
+                        href={store.mapsLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-gold text-xs font-poppins font-medium hover:text-gold-700 transition-colors"

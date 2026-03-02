@@ -3,7 +3,8 @@ import { useSearchParams } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
 import products from '../data/products'
 
-const categories = ['All', 'Gold', 'Silver', 'Diamond', 'Bridal']
+const categories = ['All', '22kt Gold', '18kt Gold', 'Rose Gold', 'Silver', 'Gold Coins', 'Artificial']
+// Note: 'Gold' is not a standalone filter key; sub-categories 18kt Gold / 22kt Gold are used instead
 
 function Products() {
     const [searchParams, setSearchParams] = useSearchParams()
@@ -62,14 +63,50 @@ function Products() {
             <section className="py-16 bg-gray-50 min-h-screen">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Category Filters */}
-                    <div className="flex flex-wrap justify-center gap-3 mb-12">
-                        {categories.map((category) => (
+                    <div className="flex overflow-x-auto gap-2 sm:gap-3 mb-10 sm:mb-12 pb-2 sm:pb-0 sm:flex-wrap sm:justify-center items-center">
+                        {/* All */}
+                        <button
+                            onClick={() => handleCategoryClick('All')}
+                            className={`flex-shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-poppins text-xs sm:text-sm font-medium transition-all duration-300 ${activeCategory === 'All'
+                                ? 'bg-gradient-to-r from-gold-500 to-gold-600 text-white shadow-lg shadow-gold-400/25'
+                                : 'bg-white text-gray-600 hover:text-gold border border-gray-200 hover:border-gold-300 shadow-sm'
+                                }`}
+                        >
+                            All
+                        </button>
+
+                        {/* Gold Group: parent label + 18kt / 22kt sub-buttons */}
+                        <div className="flex-shrink-0 flex items-center gap-1 bg-white border border-gray-200 rounded-full px-1 py-1 shadow-sm">
+                            <span className="font-poppins text-xs sm:text-sm font-semibold text-amber-700 pl-2 pr-1">Gold</span>
+                            <span className="text-gray-300 text-xs">|</span>
+                            <button
+                                onClick={() => handleCategoryClick('18kt Gold')}
+                                className={`px-3 py-1 rounded-full font-poppins text-xs font-medium transition-all duration-200 ${activeCategory === '18kt Gold'
+                                    ? 'bg-amber-500 text-white shadow'
+                                    : 'text-gray-500 hover:bg-amber-50 hover:text-amber-700'
+                                    }`}
+                            >
+                                18kt
+                            </button>
+                            <button
+                                onClick={() => handleCategoryClick('22kt Gold')}
+                                className={`px-3 py-1 rounded-full font-poppins text-xs font-medium transition-all duration-200 ${activeCategory === '22kt Gold'
+                                    ? 'bg-amber-500 text-white shadow'
+                                    : 'text-gray-500 hover:bg-amber-50 hover:text-amber-700'
+                                    }`}
+                            >
+                                22kt
+                            </button>
+                        </div>
+
+                        {/* Remaining flat categories */}
+                        {['Rose Gold', 'Silver', 'Gold Coins', 'Artificial'].map((category) => (
                             <button
                                 key={category}
                                 onClick={() => handleCategoryClick(category)}
-                                className={`px-6 py-2.5 rounded-full font-poppins text-sm font-medium transition-all duration-300 ${activeCategory === category
-                                        ? 'bg-gradient-to-r from-gold-500 to-gold-600 text-white shadow-lg shadow-gold-400/25'
-                                        : 'bg-white text-gray-600 hover:text-gold border border-gray-200 hover:border-gold-300 shadow-sm'
+                                className={`flex-shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-poppins text-xs sm:text-sm font-medium transition-all duration-300 ${activeCategory === category
+                                    ? 'bg-gradient-to-r from-gold-500 to-gold-600 text-white shadow-lg shadow-gold-400/25'
+                                    : 'bg-white text-gray-600 hover:text-gold border border-gray-200 hover:border-gold-300 shadow-sm'
                                     }`}
                             >
                                 {category}

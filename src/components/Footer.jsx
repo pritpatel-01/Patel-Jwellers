@@ -11,7 +11,7 @@ const categories = [
     { name: 'Gold Jewellery', path: '/products?category=Gold' },
     { name: 'Silver Jewellery', path: '/products?category=Silver' },
     { name: 'Diamond Jewellery', path: '/products?category=Diamond' },
-    { name: 'Bridal Collection', path: '/products?category=Bridal' },
+    { name: 'Artificial Jewellery', path: '/products?category=Bridal' },
 ]
 
 function Footer() {
